@@ -1,4 +1,3 @@
-// import apiCall from "./api-utils";
 
 
 const apiCall = (
@@ -22,6 +21,7 @@ const apiCall = (
     });
 };
 
+
 const boardButton = document.getElementById("submit-board");
 
 boardButton?.addEventListener("click", () => {
@@ -39,23 +39,25 @@ boardButton?.addEventListener("click", () => {
 
 });
 
-const robotButton = document.getElementById("submit-robot");
 
-robotButton?.addEventListener("click", () => {
-    const width = <HTMLInputElement>document.getElementById("robotWidth");
-    const height = <HTMLInputElement>document.getElementById("robotHeight");
-    const direction = <HTMLInputElement>document.getElementById("robotDirection");
+const addRobotButton = () => {
+    const robotButton = document.getElementById("submit-robot");
 
-    const data = `${width?.value} ${height?.value} ${direction?.value}`
-
-    console.log(data);
+    robotButton?.addEventListener("click", () => {
+        const width = <HTMLInputElement>document.getElementById("robotWidth");
+        const height = <HTMLInputElement>document.getElementById("robotHeight");
+        const direction = <HTMLInputElement>document.getElementById("robotDirection");
     
-
-    const res = apiCall("robot", "POST", data);
-    console.log(res);
-
-
-});
+        const data = `${width?.value} ${height?.value} ${direction?.value}`
+    
+        console.log(data);
+        
+        const res = apiCall("robot", "POST", data);
+        console.log(res);
+    
+    });
+    
+};
 
 const moveButton = document.getElementById("submit-movement");
 
@@ -65,7 +67,6 @@ moveButton?.addEventListener("click", () => {
     const data = movement?.value;
 
     console.log(data);
-    
 
     const res = apiCall("move", "POST", data);
     console.log(res);

@@ -17,7 +17,7 @@ const manualInput = (
         console.log(boardState);
 
         rl.once('line', line => {
-            const [robotW, robotH, robotDirection] = parseStartingPositionInput(line);
+            const [robotW, robotH, robotDirection] = parseStartingPositionInput(line, boardState);
 
             boardState.robotW = robotW;
             boardState.robotH = robotH;

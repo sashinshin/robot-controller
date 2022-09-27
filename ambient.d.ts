@@ -1,6 +1,6 @@
 interface BoardState {
-    width?: number
-    height?: number
+    width: number
+    height: number
     robotW?: number
     robotH?: number
     robotDirection?: number

@@ -47,7 +47,7 @@ const startServer = (
 
                 console.log(body);
 
-                const [robotW, robotH, robotDirection] = parseStartingPositionInput(body);
+                const [robotW, robotH, robotDirection] = parseStartingPositionInput(body, boardState);
                 boardState.robotW = robotW;
                 boardState.robotH = robotH;
                 boardState.robotDirection = robotDirection;

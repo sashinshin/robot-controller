@@ -1,28 +1,42 @@
 const parseBoardInput = (
     boardInput: string
 ): [number, number] => {
-    const width = parseInt(boardInput[0]);
-    const height = parseInt(boardInput[2]);
-    // make parsing better
+    const input = boardInput.split(" ")
+    const width = parseInt(input[0]);
+    const height = parseInt(input[1]);
 
-    if (typeof width !== "number" || typeof height !== "number") {
-        throw new Error("invalid input");
-        // check not negative, not 0
+    if (Number.isNaN(width) || Number.isNaN(height)) {
+        throw new Error("Invalid input");
+    };
+    if (0 >= width || 0 >= height) {
+        throw new Error("Input too small");
     };
 
     return [width - 1, height - 1];
 };
 
 const parseStartingPositionInput = (
-    startPositionInput: string
+    startPositionInput: string,
+    boardState: BoardState
 ): [number, number, number] => {
+    const input = startPositionInput.split(" ");
+    const startWidth = parseInt(input[0]);
+    const startHeight = parseInt(input[1]);
+    const startDirectionLetter = input[2].toLowerCase();
+    console.log(input);
 
-    const startWidth = parseInt(startPositionInput[0]);
-    const startHeight = parseInt(startPositionInput[2]);
-    const startDirectionLetter = startPositionInput[4].toLowerCase();
+
+    if (Number.isNaN(startWidth) || Number.isNaN(startHeight)) {
+        throw new Error("Invalid input");
+    };
+    if (0 >= startWidth || 0 >= startHeight) {
+        throw new Error("Input too small");
+    };
+    if (startWidth > boardState.width || startHeight > boardState.height) {
+        throw new Error("Input out of bounds");
+    };
 
     let startDirection: number;
-
     switch (startDirectionLetter) {
         case "n":
             startDirection = 0;
@@ -30,23 +44,20 @@ const parseStartingPositionInput = (
 
         case "e":
             startDirection = 1;
-
             break;
+
         case "s":
             startDirection = 2;
-
             break;
+
         case "w":
             startDirection = 3;
-
             break;
+
         default:
-            throw new Error("invalid direction")
+            throw new Error("Invalid direction");
 
-    }
-
-    // error check, have to be within span boardstate w/h
-    // dir have to be n, s, e, w
+    };
 
     return [startWidth, startHeight, startDirection];
 };
@@ -66,49 +77,62 @@ const turnDirection = (
 };
 
 const parseMovement = (
-    move: string, boardState: any) => {
-    // regex parse movement
-    const moveArr = Array.from(move.toLowerCase());
-    let movement = { w: boardState.robotW, h: boardState.robotH, d: boardState.robotDirection };
-    console.log(movement);
+    movement: string, boardState: any) => {
+    const regex = /^[rlfRLF]+\b/g;
+    if (!movement.match(regex)) {
+        throw new Error("Invalid movement input");
+    };
 
-    moveArr.forEach((input) => {
+    const movementArray = Array.from(movement.toLowerCase());
+    let robotPosition = {
+        width: boardState.robotW,
+        height: boardState.robotH,
+        direction: boardState.robotDirection
+    };
+
+    movementArray.forEach((input) => {
         if (input === "r" || input === "l") {
-            movement.d = turnDirection(movement.d, input);
+            robotPosition.direction = turnDirection(robotPosition.direction, input);
+
         } else {
-            switch (movement.d) {
+            switch (robotPosition.direction) {
                 case 0:
-                    movement.h -= 1;
+                    robotPosition.height -= 1;
                     break;
+
                 case 1:
-                    movement.w += 1;
+                    robotPosition.width += 1;
                     break;
+
                 case 2:
-                    movement.h += 1;
-
+                    robotPosition.height += 1;
                     break;
-                case 3:
-                    movement.w -= 1;
 
+                case 3:
+                    robotPosition.width -= 1;
                     break;
 
                 default:
-                    break;
+                    throw new Error("Invalid movement input")
             }
-        };
-        console.log(movement);
 
+            if (robotPosition.width > boardState.width || robotPosition.height > boardState.height) {
+                throw new Error("Robot collided with wall");
+            };
+
+        };
+        console.log(robotPosition);
 
     });
 
-    // error check w/h within boardspace
+
     // parse direction
     console.log("Result:");
 
-    console.log(movement);
+    console.log(robotPosition);
 
-    return movement;
+    return robotPosition;
 
 };
 
-export {parseBoardInput, parseStartingPositionInput, parseMovement}
+export { parseBoardInput, parseStartingPositionInput, parseMovement };
