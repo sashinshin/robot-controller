@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robot Controller</title>
+</head>
+
+<body>
+    <main>
+        <div id="info-container">
+            <p>Input board width and height</p>
+        </div>
+        <div id="container">
+            <input type="number" id="startWidth" min="1">
+            <input type="number" id="startHeight" min="1">
+            <button id="submit-board">Submit</button>
+        </div>
+        <div>
+            <p>Input robot coords</p>
+        </div>
+        <div>
+            <input type="number" id="robotWidth" min="0">
+            <input type="number" id="robotHeight" min="0">
+            <input type="text" id="robotDirection" pattern="[neswNESW]" />
+            <button id="submit-robot">Submit</button>
+        </div>
+        <div>
+            <p>Input walk pattern</p>
+        </div>
+        <div>e
+            <input type="text" pattern="[rlfRLF]" />
+
+            <button id="submit-movement">Submit</button>
+        </div>
+    </main>
+
+</body>
+<script src="index.js"></script>
+<link rel="stylesheet" type="text/css" href="style.css" />
+
+
+</html>

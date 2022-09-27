@@ -1,7 +1,7 @@
 {
   "scripts": {
     "start": "tsc && node index",
-    "server": "tsc && PORT=5050 node index",
+    "serve": "tsc && PORT=5050 node index",
     "test": "jest"
   },
   "devDependencies": {

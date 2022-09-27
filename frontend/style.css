@@ -1,0 +1,8 @@
+* {
+    background-color: aliceblue;
+}
+
+#container {
+    justify-content: center;
+    background-color: beige;
+}
