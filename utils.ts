@@ -23,8 +23,6 @@ const parseStartingPositionInput = (
     const startWidth = parseInt(input[0]);
     const startHeight = parseInt(input[1]);
     const startDirectionLetter = input[2].toLowerCase();
-    console.log(input);
-
 
     if (Number.isNaN(startWidth) || Number.isNaN(startHeight)) {
         throw new Error("Invalid input");
