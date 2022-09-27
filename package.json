@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "start": "tsc && node index",
+    "server": "tsc && PORT=5050 node index",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@types/node": "^18.7.23",
+    "typescript": "^4.8.3"
+  }
+}
