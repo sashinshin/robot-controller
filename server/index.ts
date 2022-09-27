@@ -33,7 +33,7 @@ const startServer = (
 
                 console.log(boardState);
                 res.writeHead(200, { ...headers, 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ body: boardState }));
+                res.end(JSON.stringify(boardState));
             });
 
 
@@ -54,7 +54,7 @@ const startServer = (
                 console.log(boardState);
 
                 res.writeHead(200, { ...headers, 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ body: boardState }));
+                res.end(JSON.stringify(boardState));
             });
 
         } else if (req.url === '/api/move' && req.method === 'POST') {
@@ -67,12 +67,10 @@ const startServer = (
 
                 console.log(body);
 
-                parseMovement(body, boardState);
-                console.log(boardState);
-
+                const movementResult = parseMovement(body, boardState);
 
                 res.writeHead(200, { ...headers, 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ body: boardState }));
+                res.end(JSON.stringify(movementResult));
             });
 
         } 

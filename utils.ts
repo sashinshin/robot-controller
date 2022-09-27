@@ -29,7 +29,7 @@ const parseStartingPositionInput = (
     if (Number.isNaN(startWidth) || Number.isNaN(startHeight)) {
         throw new Error("Invalid input");
     };
-    if (0 >= startWidth || 0 >= startHeight) {
+    if (0 > startWidth || 0 > startHeight) {
         throw new Error("Input too small");
     };
     if (startWidth > boardState.width || startHeight > boardState.height) {
@@ -84,7 +84,7 @@ const parseMovement = (
     };
 
     const movementArray = Array.from(movement.toLowerCase());
-    let robotPosition = {
+    let robotPosition: RobotPosition = {
         width: boardState.robotW,
         height: boardState.robotH,
         direction: boardState.robotDirection
@@ -121,15 +121,31 @@ const parseMovement = (
             };
 
         };
-        console.log(robotPosition);
 
     });
 
+    switch (robotPosition.direction) {
+        case 0:
+            robotPosition.directionLetter = "N";
+            break;
 
-    // parse direction
-    console.log("Result:");
+        case 1:
+            robotPosition.directionLetter = "E";
+            break;
 
-    console.log(robotPosition);
+        case 2:
+            robotPosition.directionLetter = "S";
+            break;
+
+        case 3:
+            robotPosition.directionLetter = "W";
+            break;
+
+        default:
+            break;
+    }
+
+    console.log(`Report: ${robotPosition.width} ${robotPosition.height} ${robotPosition.directionLetter}`);
 
     return robotPosition;
 
