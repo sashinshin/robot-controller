@@ -2,3 +2,4 @@ node_modules
 *.js
 !jest.config.js
 package-lock.json
+.vscode

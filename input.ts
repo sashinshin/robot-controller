@@ -14,15 +14,12 @@ const manualInput = (
         const [width, height] = parseBoardInput(line);
         boardState.width = width;
         boardState.height = height;
-        console.log(boardState);
 
         rl.once('line', line => {
             const [robotW, robotH, robotDirection] = parseStartingPositionInput(line, boardState);
-
             boardState.robotW = robotW;
             boardState.robotH = robotH;
             boardState.robotDirection = robotDirection;
-            console.log(boardState);
 
             rl.once('line', line => {
                 parseMovement(line, boardState);
