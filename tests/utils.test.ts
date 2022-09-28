@@ -77,4 +77,112 @@ describe("2. Testing starting position functionality", () => {
         expect(result).toThrow("Invalid input");
 
     });
+
+    it("2.3 Input too small, should throw", () => {
+        // GIVEN
+        const input = "5 -1 N"
+        const boardState: BoardState = {
+            height: 1,
+            width: 1
+        }
+
+        // WHEN
+        const result = () => parseStartingPositionInput(input, boardState);
+
+        // THEN
+        expect(result).toThrow("Input too small");
+
+    });
+
+    it("2.4 Input out of bounds, should throw", () => {
+        // GIVEN
+        const input = "5 5 N"
+        const boardState: BoardState = {
+            height: 5,
+            width: 4
+        }
+
+        // WHEN
+        const result = () => parseStartingPositionInput(input, boardState);
+
+        // THEN
+        expect(result).toThrow("Input out of bounds");
+
+    });
+
+    it("2.4 Invalid direction, should throw", () => {
+        // GIVEN
+        const input = "5 5 Q"
+        const boardState: BoardState = {
+            height: 5,
+            width: 5
+        }
+
+        // WHEN
+        const result = () => parseStartingPositionInput(input, boardState);
+
+        // THEN
+        expect(result).toThrow("Invalid direction");
+
+    });
+});
+
+describe("3. Testing movement parsing fucntionality", () => {
+
+    it("3.1 Correct movement", () => {
+        // GIVEN
+        const input = "RFRFFRFRF"
+        const boardState: BoardState = {
+            width: 4,
+            height: 4,
+            robotW: 1,
+            robotH: 2,
+            robotDirection: 0,
+        };
+
+        // WHEN
+        const result = parseMovement(input, boardState);
+
+        // THEN
+        expect(result).toEqual({ width: 1, height: 3, direction: 0, directionLetter: "N" });
+
+    });
+
+    it("3.2 Invalid movement input, should throw", () => {
+        // GIVEN
+        const input = "RFRFFQQQRFRF"
+        const boardState: BoardState = {
+            width: 4,
+            height: 4,
+            robotW: 1,
+            robotH: 2,
+            robotDirection: 0,
+        };
+
+        // WHEN
+        const result = () => parseMovement(input, boardState);
+
+        // THEN
+        expect(result).toThrow("Invalid movement input");
+
+    });
+
+    it("3.3 Robot collied with wall, should throw", () => {
+        // GIVEN
+        const input = "FFFFFFFFFFF"
+        const boardState: BoardState = {
+            width: 4,
+            height: 4,
+            robotW: 1,
+            robotH: 2,
+            robotDirection: 0,
+        };
+
+        // WHEN
+        const result = () => parseMovement(input, boardState);
+
+        // THEN
+        expect(result).toThrow("Robot collided with wall");
+
+    });
 });

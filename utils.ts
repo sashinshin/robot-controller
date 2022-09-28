@@ -75,13 +75,17 @@ const turnDirection = (
 };
 
 const parseMovement = (
-    movement: string, boardState: any) => {
+    movement: string, boardState: BoardState) => {
     const regex = /^[rlfRLF]+\b/g;
     if (!movement.match(regex)) {
         throw new Error("Invalid movement input");
     };
+    if (typeof boardState.robotW === "undefined" || typeof boardState.robotH === "undefined" || typeof boardState.robotDirection === "undefined") {
+        throw new Error("Undefined board state");
+    }
 
     const movementArray = Array.from(movement.toLowerCase());
+
     let robotPosition: RobotPosition = {
         width: boardState.robotW,
         height: boardState.robotH,
@@ -112,12 +116,12 @@ const parseMovement = (
 
                 default:
                     throw new Error("Invalid movement input")
-            }
-
-            if (robotPosition.width > boardState.width || robotPosition.height > boardState.height) {
-                throw new Error("Robot collided with wall");
             };
 
+            if (robotPosition.width > boardState.width || robotPosition.height > boardState.height || 0 > robotPosition.width || 0 > robotPosition.height) {
+                throw new Error("Robot collided with wall");
+            };
+            
         };
 
     });
@@ -144,7 +148,7 @@ const parseMovement = (
     }
 
     console.log(`Report: ${robotPosition.width} ${robotPosition.height} ${robotPosition.directionLetter}`);
-
+    
     return robotPosition;
 
 };
