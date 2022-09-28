@@ -3,12 +3,15 @@
 #### Summary
 Controller for a robot that moves in a grid.
 
-Grid is defined by "[number] [number]"
+Grid is defined by:
+"[number] [number]"
 
-Start position is defined by "[number] [number] [direction]"
+Start position is defined by:
+"[number] [number] [direction]"
 Where number is within the boundaries of the grid, and directions is defined by a letter corresponding [N] for north, [E] for east, [S] for south and [W] for west.
 
-The movement is defined by "[string]"
+The movement is defined by:
+"[string]"
 Where the string contains [R] for the robot to turn right, [L] for the robot to turn left and [F] for the robot to move forward in the direction it is currently facing.
 
 Example input:
