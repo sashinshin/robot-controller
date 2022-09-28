@@ -14,27 +14,37 @@
             <p>Input board width and height</p>
         </div>
         <div id="container">
-            <input type="number" id="startWidth" min="1">
-            <input type="number" id="startHeight" min="1">
+            <label for="startWidth">Width</label>
+            <input type="number" id="startWidth" min="1" name="startWidth">
+
+            <label for="startHeight">Height</label>
+            <input type="number" id="startHeight" min="1" name="startHeight">
+
             <button id="submit-board">Submit</button>
         </div>
         <div>
-            <p>Input robot coords</p>
+            <p>Input robot coordinates and direction</p>
         </div>
         <div>
-            <input type="number" id="robotWidth" min="0">
-            <input type="number" id="robotHeight" min="0">
-            <input type="text" id="robotDirection" pattern="[neswNESW]" />
+            <label for="robotWidth">Width</label>
+            <input type="number" id="robotWidth" min="0" readonly="true" name="robotWidth" class="greyed-out">
+            
+            <label for="startHeight">Height</label>
+            <input type="number" id="robotHeight" min="0" readonly="true" name="robotHeight" class="greyed-out">
+
+            <label for="robotDirection">Direction</label>
+            <input type="text" id="robotDirection" pattern="/^[neswNESW]\b/g" maxlength="1" readonly="true" name="robotDirection" class="greyed-out"/>
+
             <button id="submit-robot">Submit</button>
         </div>
         <div>
             <p>Input walk pattern</p>
         </div>
         <div>
-            <input type="text" pattern="[rlfRLF]" />
-
+            <input type="text" id="movement" pattern="[rlfRLF]" readonly="true" class="greyed-out"/>
             <button id="submit-movement">Submit</button>
         </div>
+        <div id="result"></div>
     </main>
 
 </body>

@@ -6,8 +6,6 @@ import { parseBoardInput, parseStartingPositionInput, parseMovement } from "../u
 const startServer = (
     boardState: BoardState, port: number
 ) => {
-    console.log(boardState);
-    console.log(port);
 
     const server = http.createServer((req, res) => {
         const headers = {

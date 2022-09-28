@@ -1,75 +1,93 @@
 
-
-const apiCall = (
+const apiCall = async (
     route: string, method: string, body: string
 ) => {
-    fetch(`http://localhost:5050/api/${route}`, {
+    const res = await fetch(`http://localhost:5050/api/${route}`, {
         method,
         body
-    }).then(function (response) {
-        if (response.ok) {
-            return response.json();
-        } else {
-            return Promise.reject(response);
-        }
-    }).then(function (data) {
-        // This is the JSON from our response
-        console.log(data);
-    }).catch(function (err) {
-        // There was an error
-        console.warn('Something went wrong.', err);
     });
+
+    return await res.json();
 };
 
+const addMoveButton = () => {
+    const moveButton = document.getElementById("submit-movement");
+    const movement = <HTMLInputElement>document.getElementById("movement");
+
+    movement.className = "";
+    movement.readOnly = false;
+
+    moveButton?.addEventListener("click", async () => {
+
+        const body = movement?.value;
+
+        const res = await apiCall("move", "POST", body);
+
+        movement.className = "greyed-out";
+        movement.readOnly = true;
+
+        const resultNode = document.getElementById("result");
+        if (resultNode) {
+            resultNode.innerText = `Report: ${res.width} ${res.height} ${res.directionLetter}`;
+        };
+
+
+    });
+
+};
+
+const addRobotButton = (
+    boardState: any
+) => {
+    const robotButton = document.getElementById("submit-robot");
+    const width = <HTMLInputElement>document.getElementById("robotWidth");
+    const height = <HTMLInputElement>document.getElementById("robotHeight");
+    const direction = <HTMLInputElement>document.getElementById("robotDirection");
+
+    width.className = "";
+    width.readOnly = false;
+    width.max = boardState.width;
+    height.className = "";
+    height.readOnly = false
+    height.max = boardState.height;
+    direction.className = "";
+    direction.readOnly = false;
+
+    robotButton?.addEventListener("click", async () => {
+
+        const body = `${width?.value} ${height?.value} ${direction?.value}`
+
+        await apiCall("robot", "POST", body);
+
+        width.className = "greyed-out";
+        width.readOnly = true;
+        height.className = "greyed-out";
+        height.readOnly = true
+        direction.className = "greyed-out";
+        direction.readOnly = true;
+
+        addMoveButton();
+
+    });
+
+};
 
 const boardButton = document.getElementById("submit-board");
 
-boardButton?.addEventListener("click", () => {
+boardButton?.addEventListener("click", async () => {
     const width = <HTMLInputElement>document.getElementById("startWidth");
     const height = <HTMLInputElement>document.getElementById("startHeight");
 
-    const data = `${width?.value} ${height?.value}`
+    const body = `${width?.value} ${height?.value}`
 
-    console.log(data);
-    
+    const res = await apiCall("board", "POST", body);
 
-    const res = apiCall("board", "POST", data);
-    console.log(res);
+    width.className = "greyed-out";
+    width.readOnly = true;
+    height.className = "greyed-out";
+    height.readOnly = true;
 
-
-});
-
-
-const addRobotButton = () => {
-    const robotButton = document.getElementById("submit-robot");
-
-    robotButton?.addEventListener("click", () => {
-        const width = <HTMLInputElement>document.getElementById("robotWidth");
-        const height = <HTMLInputElement>document.getElementById("robotHeight");
-        const direction = <HTMLInputElement>document.getElementById("robotDirection");
-    
-        const data = `${width?.value} ${height?.value} ${direction?.value}`
-    
-        console.log(data);
-        
-        const res = apiCall("robot", "POST", data);
-        console.log(res);
-    
-    });
-    
-};
-
-const moveButton = document.getElementById("submit-movement");
-
-moveButton?.addEventListener("click", () => {
-    const movement = <HTMLInputElement>document.getElementById("robotWidth");
-
-    const data = movement?.value;
-
-    console.log(data);
-
-    const res = apiCall("move", "POST", data);
-    console.log(res);
-
+    addRobotButton(res);
 
 });
+

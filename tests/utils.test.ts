@@ -185,4 +185,22 @@ describe("3. Testing movement parsing fucntionality", () => {
         expect(result).toThrow("Robot collided with wall");
 
     });
+
+    it("3.4 Undefined board state, should throw", () => {
+        // GIVEN
+        const input = "RFRFFRFRF"
+        const boardState: BoardState = {
+            width: 4,
+            height: 4,
+            robotH: 2,
+            robotDirection: 0,
+        };
+
+        // WHEN
+        const result = () => parseMovement(input, boardState);
+
+        // THEN
+        expect(result).toThrow("Undefined board state");
+
+    });
 });

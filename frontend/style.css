@@ -1,8 +1,16 @@
-* {
-    background-color: aliceblue;
+html,
+body {
+  background-color: #e9eff2;
+  margin: 0;
+  padding: 0;
 }
 
-#container {
-    justify-content: center;
-    background-color: beige;
+main {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.greyed-out {
+    background-color: #d6d6d6;
+    margin: 0 0 0 0;
 }
