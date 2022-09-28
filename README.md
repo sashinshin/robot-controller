@@ -22,14 +22,14 @@ Report: 1 3 N
 
 #### Installation
 Run:
-"npm run install"
+<sup>npm run install</sup>
 To install dependecies
 
 #### Options
 The program can either be run in the command line by running:
-"npm run start"
+<sup>npm run start</sup>
 As explained in the summary
 
 The program can also be run as a fullstack application by running:
-"npm run serve"
+<sup>npm run serve</sup>
 And then hosting the frontend/index.html file
