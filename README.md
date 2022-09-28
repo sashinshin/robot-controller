@@ -30,6 +30,7 @@ To install dependecies
 
 #### Options
 The program can either be run in the command line by running:
+</br>
 <sub>npm run start</sub>
 As explained in the summary
 
